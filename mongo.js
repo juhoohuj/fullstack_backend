@@ -34,8 +34,6 @@ if ( process.argv.length === 5 ) {
 }
 
 
-
-
 if ( process.argv.length === 3 ) {
     Person.find({}).then(result => {
         console.log('phonebook:')
