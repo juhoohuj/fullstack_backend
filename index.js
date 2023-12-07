@@ -90,7 +90,7 @@ let  persons = [
   }
     )
 
-  const PORT = process.env || 3002
+  const PORT =  3002
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
