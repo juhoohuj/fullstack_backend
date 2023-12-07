@@ -1,11 +1,13 @@
 require('dotenv').config()
 
 const express = require('express')
+const app = express()
+const cors = require('cors')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const Person = require('./models/person')
-const app = express()
 
+app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
@@ -24,9 +26,8 @@ app.use(morgan('tiny'), morgan(':body'))
   })
 
   app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = Person.findById(id).then(person => {
-      response.json(person)
+    Person.findById(request.params.id).then(person => {
+      response.json(person) 
     })
   })
 
@@ -57,7 +58,7 @@ app.use(morgan('tiny'), morgan(':body'))
   })
 
   app.get('/info', (req, res) => {
-    Person.find({}).then(persons => {
+     Person.find({}).then(persons => {
       res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`)
     })
   })
